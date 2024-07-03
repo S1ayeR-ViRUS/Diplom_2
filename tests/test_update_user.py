@@ -9,7 +9,7 @@ from stellar_burgers_api import UserMethods
 class TestUpdateUser:
     fake = Faker(locale="ru_RU")
 
-    @allure.description('Проверка успешного изменения данных о пользователя, когда пользователь авторизован.')
+    @allure.title('Проверка успешного изменения данных о пользователя, когда пользователь авторизован.')
     @pytest.mark.parametrize('update_data', [({'email': fake.email()}),
                                              ({'password': fake.password()}),
                                              ({'name': fake.name()})])
@@ -22,7 +22,7 @@ class TestUpdateUser:
                 update_user.json()['success'] is True
         )
 
-    @allure.description('Проверка невозможности изменения данных о пользователе, когда пользователь не авторизован.')
+    @allure.title('Проверка невозможности изменения данных о пользователе, когда пользователь не авторизован.')
     @pytest.mark.parametrize('update_data', [({'email': fake.email()}),
                                              ({'password': fake.password()}),
                                              ({'name': fake.name()})])

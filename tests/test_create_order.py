@@ -6,7 +6,7 @@ from stellar_burgers_api import OrderMethods
 @allure.story('Ручка /api/orders')
 @allure.description('Создание заказа')
 class TestCreateOrder:
-    @allure.description('Проверка создания заказа c ингредиентами авторизованным пользователем. '
+    @allure.title('Проверка создания заказа c ингредиентами авторизованным пользователем. '
                         'Получаем код 200 и тело ответа в котором есть: "success":true')
     def test_create_order_with_auth_with_ingredients_success(self, login_user):
         ingredients = OrderMethods.get_ingredients()
@@ -17,7 +17,7 @@ class TestCreateOrder:
                 and order_response.json()['success'] is True
         )
 
-    @allure.description('Проверка создания заказа c ингредиентами не авторизованным пользователем. '
+    @allure.title('Проверка создания заказа c ингредиентами не авторизованным пользователем. '
                         'Получаем код 200 и тело ответа в котором есть: "success":true')
     def test_create_order_without_auth_with_ingredients_success(self):
         ingredients = OrderMethods.get_ingredients()
@@ -27,7 +27,7 @@ class TestCreateOrder:
                 and order_response.json()['success'] is True
         )
 
-    @allure.description('Проверка создания заказа без ингредиентов авторизованным пользователем. '
+    @allure.title('Проверка создания заказа без ингредиентов авторизованным пользователем. '
                         'Получаем код 400 и тело ответа в котором есть: \'success\':false')
     def test_create_order_with_auth_without_ingredients_error(self, login_user):
         token = login_user[2]
@@ -37,7 +37,7 @@ class TestCreateOrder:
                 order_response.text == '{"success":false,"message":"Ingredient ids must be provided"}'
         )
 
-    @allure.description('Проверка создания заказа без ингредиентов не авторизованным пользователем. '
+    @allure.title('Проверка создания заказа без ингредиентов не авторизованным пользователем. '
                         'Получаем код 400 и тело ответа в котором есть: \'success\':false')
     def test_create_order_without_auth_without_ingredients_error(self):
         order_response = OrderMethods.create_order(token_user='', ids='')
@@ -46,7 +46,7 @@ class TestCreateOrder:
                 order_response.text == '{"success":false,"message":"Ingredient ids must be provided"}'
         )
 
-    @allure.description('Проверка создания заказа с неверным хешем ингредиентов. '
+    @allure.title('Проверка создания заказа с неверным хешем ингредиентов. '
                         'Получаем код 400')
     def test_create_order_with_incorrect_hex_error_400(self):
         ingredients = generate_random_hex_24()
